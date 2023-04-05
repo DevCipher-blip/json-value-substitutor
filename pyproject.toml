@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "json-value-substitutor"
+version = "1.0.0"
+description = "Wrap every leaf value of a JSON object as {_content, _type}."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=9.2", "ruff>=0.17", "mypy>=2.4"]
+
+[project.scripts]
+json-value-substitutor = "json_value_substitutor.cli:main"
+
+[tool.setuptools.package-data]
+json_value_substitutor = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
