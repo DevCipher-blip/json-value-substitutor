@@ -90,9 +90,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         return fail(f"cannot read {args.input}: {exc.strerror}")
     except ValueError as exc:
         return fail(f"{args.input} is not valid JSON: {exc}")
+    except RecursionError:
+        return fail(f"{args.input} is nested too deeply to parse")
     if not isinstance(data, dict):
         return fail(f"{args.input}: top-level JSON value must be an object")
-    text = json.dumps(substitution(data, args.depth), ensure_ascii=False, allow_nan=False)
+    try:
+        text = json.dumps(substitution(data, args.depth), ensure_ascii=False, allow_nan=False)
+    except RecursionError:
+        return fail(f"{args.input} is nested too deeply to serialise")
     try:
         write_atomically(args.output, text)
     except OSError as exc:
