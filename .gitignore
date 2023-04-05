@@ -1,0 +1,15 @@
+
+
+# Local environments and generated files
+.venv/
+venv/
+env/
+project_venv/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+!.env.sample
+.DS_Store
